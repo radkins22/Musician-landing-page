@@ -1,0 +1,62 @@
+.name-gradient {
+  background: linear-gradient(to bottom, #7f1d1d, #b91c1c, #7f1d1d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0
+    #000, -2px 0 0 #000;
+  position: relative;
+  display: inline-block;
+}
+
+.name-gradient::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(to bottom, #7f1d1d, #b91c1c, #7f1d1d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: -1;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.metal-effect {
+  background: linear-gradient(to bottom, #991b1b, #dc2626, #991b1b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(0, 0, 0, 0.6), 0 2px 2px rgba(0, 0, 0, 0.6), 0 4px 4px
+    rgba(0, 0, 0, 0.6), 0 0 0 1px #000;
+  position: relative;
+  letter-spacing: 2px;
+}
+
+.metal-effect::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 55%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100% -100%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
