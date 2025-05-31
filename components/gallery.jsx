@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight, X, Play, Pause } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, X, Play, Pause } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const galleryImages = [
   {
     src: "/images/reuben-current-performance.jpg",
     alt: "Reuben performing with electric guitar in front of his backdrop",
-    caption: "Current performance showcasing Reuben's professional setup",
+    caption: "Reuben in his element, guitar in hand",
   },
   {
     src: "/images/reuben-patriotic-bass.jpg",
     alt: "Reuben performing with patriotic bandana and bass guitar",
-    caption: "Reuben rocking the bass with patriotic style",
+    caption: "Reuben rocking the guitar with patriotic style",
   },
   {
     src: "/images/sweetwater-live-performance.jpg",
@@ -39,7 +39,13 @@ const galleryImages = [
   {
     src: "/images/reuben-nebraska-tent.jpg",
     alt: "Reuben performing solo under tent in Nebraska shirt",
-    caption: "Solo acoustic performance representing Nebraska pride",
+    caption: "Electric guitar performance showcasing Nebraska pride",
+  },
+  {
+    src: "/images/cactusHill.jpg",
+    alt: "Reuben performing solo under tent in Nebraska shirt",
+    caption:
+      "Reuben and Cactus Hill lighting up the outdoor stage with electric energy",
   },
   {
     src: "/images/vintage-band-formal-photo.jpg",
@@ -49,12 +55,13 @@ const galleryImages = [
   {
     src: "/images/reuben-white-telecaster.jpg",
     alt: "Reuben playing white Telecaster guitar at venue",
-    caption: "Reuben with his signature white Telecaster",
+    caption: "Reuben with his signature Telecaster 'Grandma'",
   },
   {
     src: "/images/reuben-seated-guitar.jpg",
     alt: "Reuben seated playing white guitar in club venue",
-    caption: "Intimate club performance - connecting with the audience",
+    caption:
+      "Shredding on guitar with the band during a high-energy bar performance",
   },
   {
     src: "/images/reuben-with-children.jpg",
@@ -62,19 +69,41 @@ const galleryImages = [
     caption: "Bringing music and joy to the next generation",
   },
   {
+    src: "/images/cactusHill2.jpg",
+    alt: "Reuben playing ukulele for children at community event",
+    caption: "Cactus Hill bringing the heat with Reuben on electric guitar",
+  },
+  {
+    src: "/images/army.jpg",
+    alt: "Reuben playing ukulele for children at community event",
+    caption: "Reuben in his Army days - the early years of musical passion",
+  },
+  {
+    src: "/images/couple.jpg",
+    alt: "Reuben playing ukulele for children at community event",
+    caption:
+      "Reuben and his wife of over 30 years — a lifelong partnership rooted in love and shared passion for music.",
+  },
+  {
+    src: "/images/guitarPic.jpg",
+    alt: "Reuben playing ukulele for children at community event",
+    caption: "Reuben doing the thing he loves most - playing guitar",
+  },
+  {
     src: "/images/reuben-acoustic-venue.jpg",
     alt: "Reuben performing acoustic guitar at venue",
-    caption: "Intimate acoustic performance - connecting with the audience",
+    caption:
+      "Sweetwater band performance — electric vibes and crowd connection",
   },
   {
     src: "/images/young-reuben-military.jpg",
     alt: "Young Reuben in military uniform",
-    caption: "Serving his country - early Army days",
+    caption: "Throwback to a young Reuben in his early guitar days",
   },
   {
     src: "/images/recent-band-promo.jpg",
     alt: "Recent professional band promotional photo",
-    caption: "Current band lineup - ready for any performance",
+    caption: "Reuben with a former band lineup — always ready to rock",
   },
   {
     src: "/images/young-reuben-drums.jpg",
@@ -104,7 +133,7 @@ const galleryImages = [
   {
     src: "/images/musicians-laughing.jpg",
     alt: "Candid moment of musicians laughing together",
-    caption: "The joy of music - laughter and friendship between sets",
+    caption: "The joy of music — laughter and friendship on stage",
   },
   {
     src: "/images/outdoor-band-setup.jpg",
@@ -119,7 +148,7 @@ const galleryImages = [
   {
     src: "/images/reuben-bass-performance.jpg",
     alt: "Reuben playing bass guitar on stage",
-    caption: "Versatility in action - laying down the bass line",
+    caption: "Reuben in action — flexing his guitar skills",
   },
   {
     src: "/images/reuben-bass-home.jpg",
@@ -129,7 +158,8 @@ const galleryImages = [
   {
     src: "/images/reuben-nebraska-cap.jpg",
     alt: "Reuben in Nebraska cap playing yellow Telecaster",
-    caption: "Proud Nebraska musician with his signature Telecaster",
+    caption:
+      "Proud Nebraska musician with his signature Telecaster, lovingly dubbed 'Grandma'",
   },
   {
     src: "/images/blue-stage-lighting.jpg",
@@ -149,7 +179,8 @@ const galleryImages = [
   {
     src: "/images/young-reuben-studio.jpg",
     alt: "Young Reuben in the studio with guitar and amp",
-    caption: "Early days in the studio - the passion was already there",
+    caption:
+      "Early days at a music competition — passion waiting to take the stage",
   },
   {
     src: "/images/band-friends-gathering.jpg",
@@ -189,79 +220,87 @@ const galleryImages = [
   {
     src: "/images/reuben-portrait-cap.jpg",
     alt: "Recent portrait of Reuben in cap and sweater",
-    caption: "The man behind the music - warm and approachable",
+    caption: "The man behind the music — a true force on guitar",
   },
-]
+];
 
 export default function Gallery() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [isAutoPlay, setIsAutoPlay] = useState(true)
-  const [isPaused, setIsPaused] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Auto-advance carousel
   useEffect(() => {
-    if (!isAutoPlay || isPaused || lightboxOpen) return
+    if (!isAutoPlay || isPaused || lightboxOpen) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))
-    }, 4000) // Change slide every 4 seconds
+      setCurrentIndex((prev) =>
+        prev === galleryImages.length - 1 ? 0 : prev + 1
+      );
+    }, 4000); // Change slide every 4 seconds
 
-    return () => clearInterval(interval)
-  }, [isAutoPlay, isPaused, lightboxOpen])
+    return () => clearInterval(interval);
+  }, [isAutoPlay, isPaused, lightboxOpen]);
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))
-  }
+    setCurrentIndex((prev) =>
+      prev === 0 ? galleryImages.length - 1 : prev - 1
+    );
+  };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))
-  }
+    setCurrentIndex((prev) =>
+      prev === galleryImages.length - 1 ? 0 : prev + 1
+    );
+  };
 
   const goToSlide = (index) => {
-    setCurrentIndex(index)
-  }
+    setCurrentIndex(index);
+  };
 
   const openLightbox = () => {
-    setLightboxOpen(true)
-    setIsPaused(true)
-  }
+    setLightboxOpen(true);
+    setIsPaused(true);
+  };
 
   const closeLightbox = () => {
-    setLightboxOpen(false)
-    setIsPaused(false)
-  }
+    setLightboxOpen(false);
+    setIsPaused(false);
+  };
 
   const toggleAutoPlay = () => {
-    setIsAutoPlay(!isAutoPlay)
+    setIsAutoPlay(!isAutoPlay);
     if (isAutoPlay) {
-      setIsPaused(true)
+      setIsPaused(true);
     } else {
-      setIsPaused(false)
+      setIsPaused(false);
     }
-  }
+  };
 
   // Calculate visible thumbnails (show 5 at a time)
   const getVisibleThumbnails = () => {
-    const thumbnailsToShow = 5
-    const start = Math.max(0, currentIndex - Math.floor(thumbnailsToShow / 2))
-    const end = Math.min(galleryImages.length, start + thumbnailsToShow)
-    const adjustedStart = Math.max(0, end - thumbnailsToShow)
+    const thumbnailsToShow = 5;
+    const start = Math.max(0, currentIndex - Math.floor(thumbnailsToShow / 2));
+    const end = Math.min(galleryImages.length, start + thumbnailsToShow);
+    const adjustedStart = Math.max(0, end - thumbnailsToShow);
 
     return galleryImages.slice(adjustedStart, end).map((image, index) => ({
       ...image,
       originalIndex: adjustedStart + index,
-    }))
-  }
+    }));
+  };
 
   return (
     <section id="gallery" className="py-20 bg-black">
       <div className="container px-4 mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Photo Gallery</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            Photo Gallery
+          </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Moments captured throughout Reuben's musical journey spanning five decades - from Army service to musical
-            mastery
+            Moments captured throughout Reuben's musical journey spanning five
+            decades - from Army service to musical mastery
           </p>
           <div className="w-24 h-1 bg-red-800 mx-auto mt-6"></div>
         </div>
@@ -304,7 +343,11 @@ export default function Gallery() {
               className="absolute top-4 right-4 bg-black/50 text-white hover:bg-black/70 rounded-full"
               onClick={toggleAutoPlay}
             >
-              {isAutoPlay && !isPaused ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+              {isAutoPlay && !isPaused ? (
+                <Pause className="h-6 w-6" />
+              ) : (
+                <Play className="h-6 w-6" />
+              )}
             </Button>
 
             {/* Image Counter */}
@@ -315,7 +358,9 @@ export default function Gallery() {
 
           {/* Caption */}
           <div className="mt-4 text-center">
-            <p className="text-white text-lg font-medium">{galleryImages[currentIndex].caption}</p>
+            <p className="text-white text-lg font-medium">
+              {galleryImages[currentIndex].caption}
+            </p>
           </div>
 
           {/* Thumbnail Navigation */}
@@ -330,7 +375,12 @@ export default function Gallery() {
                 }`}
                 onClick={() => goToSlide(image.originalIndex)}
               >
-                <Image src={image.src || "/placeholder.svg"} alt={image.alt} fill className="object-cover" />
+                <Image
+                  src={image.src || "/placeholder.svg"}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                />
               </div>
             ))}
           </div>
@@ -341,7 +391,9 @@ export default function Gallery() {
               <button
                 key={index}
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "w-8 bg-red-600" : "w-2 bg-gray-600 hover:bg-red-400"
+                  index === currentIndex
+                    ? "w-8 bg-red-600"
+                    : "w-2 bg-gray-600 hover:bg-red-400"
                 }`}
                 onClick={() => goToSlide(index)}
               />
@@ -379,7 +431,9 @@ export default function Gallery() {
               className="object-contain"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-4">
-              <p className="text-white text-center text-lg">{galleryImages[currentIndex].caption}</p>
+              <p className="text-white text-center text-lg">
+                {galleryImages[currentIndex].caption}
+              </p>
             </div>
           </div>
 
@@ -394,5 +448,5 @@ export default function Gallery() {
         </div>
       )}
     </section>
-  )
+  );
 }

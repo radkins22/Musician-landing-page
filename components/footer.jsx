@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Facebook, Youtube, Music } from "lucide-react"
+import { FaFacebookF, FaYoutube } from 'react-icons/fa';
+import { Music } from "lucide-react"
 import LegalModal from "./legal-modal"
 
 export default function Footer() {
@@ -50,7 +51,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-red-400 transition-colors"
                 >
-                  <Facebook className="h-6 w-6" />
+                  <FaFacebookF className="h-8 w-8" />
                   <span className="sr-only">Facebook</span>
                 </Link>
                 <Link
@@ -59,7 +60,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-red-400 transition-colors"
                 >
-                  <Youtube className="h-6 w-6" />
+                  <FaYoutube  className="h-10 w-10" />
                   <span className="sr-only">YouTube</span>
                 </Link>
               </div>
